@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #
-# project.sh — быстрый старт Laravel-проекта в Docker
-#
 # Параметры:
 #   --seed  : после миграций дополнительно запустить db:seed
 #   --rebuild : принудительно пересобрать образы (docker compose build --no-cache)
@@ -68,18 +66,18 @@ log "MySQL готов"
 PHP_EXEC="$COMPOSE exec -T php"
 
 log "Генерирую APP_KEY"
-$PHP_EXEC php artisan key:generate --force
+$PHP_EXEC php artisan key:generate
 
 log "Кеширую конфигурацию"
 $PHP_EXEC php artisan config:clear
 $PHP_EXEC php artisan config:cache
 
 log "Применяю миграции"
-$PHP_EXEC php artisan migrate --force
+$PHP_EXEC php artisan migrate
 
 if $SEED; then
   log "Запускаю сиды"
-  $PHP_EXEC php artisan db:seed --force
+  $PHP_EXEC php artisan db:seed
 fi
 
 log "Создаю симлинк storage → public"
