@@ -15,8 +15,9 @@ class Car extends Model
 
     public function model(): BelongsTo
     {
-        return $this->belongsTo(CarModel::class);
+        return $this->belongsTo(CarModel::class, 'car_model_id');
     }
+
 
     public function driver(): HasOne
     {
