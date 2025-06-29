@@ -1,0 +1,942 @@
+{
+	"info": {
+		"_postman_id": "98f6b44b-fe90-4199-af7c-2bd7e7f42ae1",
+		"name": "OnlyTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38121737"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Авторизация сотрудника",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"ivan@example.com\",\"password\":\"password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Авторизация сотрудника",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"email\":\"ivan@example.com\",\"password\":\"password\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 07:31:32 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3NTExODIyOTIsImV4cCI6MTc1MTE4NTg5MiwibmJmIjoxNzUxMTgyMjkyLCJqdGkiOiJCTGhPN2NsYmFKamc3c2RFIiwic3ViIjoiMSIsInBydiI6IjMyOTYzYTYwNmMyZjE3MWYxYzE0MzMxZTc2OTc2NmNkNTkxMmVkMTUifQ.VVhnN404NIqyrQTFst0yE5d19N5y0ArIXfFGhIFVsGE\",\n    \"token_type\": \"bearer\",\n    \"expires_in\": 3600\n}"
+						}
+					]
+				},
+				{
+					"name": "Обновление токена",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Обновление токена",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/auth/refresh",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refresh"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 07:34:15 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2F1dGgvcmVmcmVzaCIsImlhdCI6MTc1MTE4MjI5MiwiZXhwIjoxNzUxMTg2MDU1LCJuYmYiOjE3NTExODI0NTUsImp0aSI6IkhaUGxydmxSS2JNZWlYYWgiLCJzdWIiOiIxIiwicHJ2IjoiMzI5NjNhNjA2YzJmMTcxZjFjMTQzMzFlNzY5NzY2Y2Q1OTEyZWQxNSJ9.G_NxPa6PxI2414If4X_mt6LJE3nxjaduSuvG0EbDlWk\",\n    \"token_type\": \"bearer\",\n    \"expires_in\": 3600\n}"
+						}
+					]
+				},
+				{
+					"name": "Выход",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Данные сотрудника",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Данные сотрудника",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 07:41:06 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Иван Админ\",\n    \"email\": \"ivan@example.com\",\n    \"email_verified_at\": null,\n    \"position_id\": 1,\n    \"created_at\": \"2025-06-27T15:49:20.000000Z\",\n    \"updated_at\": \"2025-06-27T15:49:20.000000Z\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "trips",
+			"item": [
+				{
+					"name": "Создать поездку",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n           \"car_id\":    4,\n           \"starts_at\": \"2025-07-02T09:00\",\n           \"ends_at\":   \"2025-07-02T18:00\"\n         }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"trips"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Создать поездку",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n           \"car_id\":    3,\n           \"starts_at\": \"2025-07-02T09:00\",\n           \"ends_at\":   \"2025-07-02T18:00\"\n         }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/trips",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"trips"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 09:00:31 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"car_id\": 3,\n    \"starts_at\": \"2025-07-02T09:00:00.000000Z\",\n    \"ends_at\": \"2025-07-02T18:00:00.000000Z\",\n    \"status\": \"planned\",\n    \"employee_id\": 1,\n    \"updated_at\": \"2025-06-29T09:00:31.000000Z\",\n    \"created_at\": \"2025-06-29T09:00:31.000000Z\",\n    \"id\": 32\n}"
+						}
+					]
+				},
+				{
+					"name": "Список поездок",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"trips"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Список поездок",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/trips",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"trips"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 09:03:04 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"employee_id\": 1,\n        \"car_id\": 3,\n        \"starts_at\": \"2025-06-28 15:56:01\",\n        \"ends_at\": \"2025-06-28 20:56:01\",\n        \"status\": \"approved\",\n        \"created_at\": \"2025-06-27T15:49:23.000000Z\",\n        \"updated_at\": \"2025-06-27T15:49:23.000000Z\",\n        \"car\": {\n            \"id\": 3,\n            \"car_model_id\": 3,\n            \"reg_number\": \"С789ОР199\",\n            \"created_at\": null,\n            \"updated_at\": null,\n            \"model\": {\n                \"id\": 3,\n                \"name\": \"BMW 5 Series\",\n                \"comfort_category_id\": 1,\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        }\n    },\n    {\n        \"id\": 31,\n        \"employee_id\": 1,\n        \"car_id\": 4,\n        \"starts_at\": \"2025-07-02 09:00:00\",\n        \"ends_at\": \"2025-07-02 18:00:00\",\n        \"status\": \"planned\",\n        \"created_at\": \"2025-06-29T07:43:52.000000Z\",\n        \"updated_at\": \"2025-06-29T07:43:52.000000Z\",\n        \"car\": {\n            \"id\": 4,\n            \"car_model_id\": 4,\n            \"reg_number\": \"Е321ТТ199\",\n            \"created_at\": null,\n            \"updated_at\": null,\n            \"model\": {\n                \"id\": 4,\n                \"name\": \"Mercedes E-Class\",\n                \"comfort_category_id\": 1,\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        }\n    },\n    {\n        \"id\": 32,\n        \"employee_id\": 1,\n        \"car_id\": 3,\n        \"starts_at\": \"2025-07-02 09:00:00\",\n        \"ends_at\": \"2025-07-02 18:00:00\",\n        \"status\": \"planned\",\n        \"created_at\": \"2025-06-29T09:00:31.000000Z\",\n        \"updated_at\": \"2025-06-29T09:00:31.000000Z\",\n        \"car\": {\n            \"id\": 3,\n            \"car_model_id\": 3,\n            \"reg_number\": \"С789ОР199\",\n            \"created_at\": null,\n            \"updated_at\": null,\n            \"model\": {\n                \"id\": 3,\n                \"name\": \"BMW 5 Series\",\n                \"comfort_category_id\": 1,\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Обновление поездки",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"status\":\"cancelled\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/trips/32",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"trips",
+								"32"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Обновление поездки",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"status\":\"cancelled\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{base_url}}/api/trips/32",
+									"protocol": "http",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"trips",
+										"32"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 09:07:18 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 32,\n    \"employee_id\": 1,\n    \"car_id\": 3,\n    \"starts_at\": \"2025-07-02 09:00:00\",\n    \"ends_at\": \"2025-07-02 18:00:00\",\n    \"status\": \"cancelled\",\n    \"created_at\": \"2025-06-29T09:00:31.000000Z\",\n    \"updated_at\": \"2025-06-29T09:07:18.000000Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Удаление поездки",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{base_url}}/api/trips/32",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"trips",
+								"32"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Удаление поездки",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "http://{{base_url}}/api/trips/32",
+									"protocol": "http",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"trips",
+										"32"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 29 Jun 2025 09:11:51 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Список доступных машин",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "starts_at",
+							"value": "2025-07-02T09:00",
+							"type": "text"
+						},
+						{
+							"key": "ends_at",
+							"value": "2025-07-02T18:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/available-cars?starts_at=2025-07-02T09:00&ends_at=2025-07-02T18:00",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"available-cars"
+					],
+					"query": [
+						{
+							"key": "starts_at",
+							"value": "2025-07-02T09:00"
+						},
+						{
+							"key": "ends_at",
+							"value": "2025-07-02T18:00"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Список доступных машин",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "starts_at",
+									"value": "2025-07-02T09:00",
+									"type": "text"
+								},
+								{
+									"key": "ends_at",
+									"value": "2025-07-02T18:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/available-cars?starts_at=2025-07-02T09:00&ends_at=2025-07-02T18:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"available-cars"
+							],
+							"query": [
+								{
+									"key": "starts_at",
+									"value": "2025-07-02T09:00"
+								},
+								{
+									"key": "ends_at",
+									"value": "2025-07-02T18:00"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 29 Jun 2025 07:42:37 GMT"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"reg_number\": \"А123ВС199\",\n        \"model\": {\n            \"id\": 1,\n            \"name\": \"Skoda Octavia\",\n            \"category\": \"Третья\"\n        },\n        \"driver\": {\n            \"name\": \"Людмила Фёдоровна Михеева\",\n            \"phone\": \"+211249961070\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"reg_number\": \"Е321ТТ199\",\n        \"model\": {\n            \"id\": 4,\n            \"name\": \"Mercedes E-Class\",\n            \"category\": \"Первая\"\n        },\n        \"driver\": {\n            \"name\": \"Дмитрий Иванович Лазарев\",\n            \"phone\": \"+861145534807\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"reg_number\": \"С789ОР199\",\n        \"model\": {\n            \"id\": 3,\n            \"name\": \"BMW 5 Series\",\n            \"category\": \"Первая\"\n        },\n        \"driver\": {\n            \"name\": \"Зиновьева Антонина Евгеньевна\",\n            \"phone\": \"+623796188716\"\n        }\n    }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3NTExODIyOTIsImV4cCI6MTc1MTE4NTg5MiwibmJmIjoxNzUxMTgyMjkyLCJqdGkiOiJCTGhPN2NsYmFKamc3c2RFIiwic3ViIjoiMSIsInBydiI6IjMyOTYzYTYwNmMyZjE3MWYxYzE0MzMxZTc2OTc2NmNkNTkxMmVkMTUifQ.VVhnN404NIqyrQTFst0yE5d19N5y0ArIXfFGhIFVsGE",
+			"type": "string"
+		}
+	]
+}
