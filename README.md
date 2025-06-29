@@ -10,13 +10,22 @@
 
 ```bash
 # Клонируем репозиторий и переходим в папку
-$ git clone https://github.com/kindasorrow/OnlyTest.git
+$ git clone https://…/OnlyTest.git
 $ cd OnlyTest
 
-# Делаем helper‑скрипт исполняемым (один раз)
+# 1️⃣ Переменные окружения
+#   ─────────────────────
+# a) корневой файл для docker‑compose (DB_*, WEB_PORT, etc.)
+$ cp .env.example .env      # редактируем при желании порт, пароли
+
+# b) .env приложения
+$ cp app/.env.example app/.env   # внутри контейнера php это увидит Laravel
+#    (при первом запуске скрипт всё равно сгенерирует APP_KEY)
+
+# 2️⃣ Делаем helper‑скрипт исполняемым (один раз)
 $ chmod +x start.sh
 
-# Поднимаем стек, выполняем миграции + сидеры
+# 3️⃣ Поднимаем стек, выполняем миграции + сидеры
 $ ./start.sh --seed
 ```
 
