@@ -19,7 +19,7 @@
 
 ```bash
 # Клонируем репозиторий и переходим в папку
-$ git clone https://…/OnlyTest.git
+$ git clone https://github.com/kindasorrow/OnlyTest.git
 $ cd OnlyTest
 
 # 1️⃣ Переменные окружения
