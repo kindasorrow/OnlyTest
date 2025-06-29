@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTripRequest;
 use App\Models\Trip;
 use App\Models\Car;
 use Illuminate\Http\JsonResponse;
@@ -16,34 +17,36 @@ class TripController extends Controller
      *
      * @return mixed
      */
-    public function index(Request $r)
+    public function index(Request $r): mixed
     {
         return $r->user()->trips()->with('car.model')->get();
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $r
+     * @param  \App\Http\Requests\StoreTripRequest  $r
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $r): JsonResponse
+    public function store(StoreTripRequest $r): JsonResponse
     {
-        $data = $r->validate([
-            'car_id'    => 'required|exists:cars,id',
-            'starts_at' => 'required|date_format:Y-m-d\TH:i',
-            'ends_at'   => 'required|date_format:Y-m-d\TH:i|after:starts_at',
-        ]);
+        $emp  = $r->user();
+        $from = Carbon::parse($r->starts_at);
+        $to   = Carbon::parse($r->ends_at);
 
-        // проверка доступности выбранной машины
-        $car  = Car::findOrFail($data['car_id']);
-        $from = Carbon::parse($data['starts_at']);
-        $to   = Carbon::parse($data['ends_at']);
+        $car = Car::whereKey($r->car_id)
+            ->availableBetween($from, $to)
+            ->first();
 
-        if (! $car->availableBetween($from, $to)->exists()) {
-            return response()->json(['message'=>'Car unavailable'], 422);
+        if (!$car) {
+            return response()->json(['message' => 'Car unavailable'], 422);
         }
 
-        $trip = $r->user()->trips()->create($data + ['status' => 'planned']);
+        $trip = $emp->trips()->create([
+            'car_id'    => $car->id,
+            'starts_at' => $from,
+            'ends_at'   => $to,
+            'status'    => 'planned',
+        ]);
 
         return response()->json($trip, 201);
     }
