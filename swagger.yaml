@@ -1,0 +1,251 @@
+openapi: 3.0.3
+info:
+  title: Company Fleet API
+  description: |
+    REST API для выбора служебных автомобилей и управления поездками сотрудников.  
+    Аутентификация – **JWT Bearer** (guard `api`, модель `Employee`).
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost:8080
+    description: Local Docker
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ComfortCategory:
+      type: object
+      properties:
+        id:    { type: integer, example: 2 }
+        title: { type: string,  example: "Вторая" }
+
+    CarModel:
+      type: object
+      properties:
+        id:       { type: integer, example: 4 }
+        name:     { type: string,  example: "Mercedes E-Class" }
+        category: { $ref: "#/components/schemas/ComfortCategory" }
+
+    Driver:
+      type: object
+      properties:
+        id:    { type: integer, example: 3 }
+        name:  { type: string,  example: "Николай Кузнецов" }
+        phone: { type: string,  example: "+79990001122" }
+
+    Car:
+      type: object
+      properties:
+        id:         { type: integer, example: 5 }
+        reg_number: { type: string,  example: "А123ВС199" }
+        model:      { $ref: "#/components/schemas/CarModel" }
+        driver:     { $ref: "#/components/schemas/Driver" }
+
+    TripStatus:
+      type: string
+      enum: [planned, approved, cancelled]
+      example: planned
+
+    Trip:
+      type: object
+      properties:
+        id:          { type: integer, example: 7 }
+        car_id:      { type: integer, example: 3 }
+        employee_id: { type: integer, example: 1 }
+        starts_at:   { type: string, format: date-time, example: "2025-07-02T09:00:00+02:00" }
+        ends_at:     { type: string, format: date-time, example: "2025-07-02T13:00:00+02:00" }
+        status:      { $ref: "#/components/schemas/TripStatus" }
+        car:         { $ref: "#/components/schemas/Car" }
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:    { type: string, format: email, example: ivan@example.com }
+        password: { type: string, example: password }
+
+    TokenResponse:
+      type: object
+      properties:
+        access_token: { type: string, example: eyJ0eXAiOiJKV1QiLCJh… }
+        token_type:   { type: string, example: bearer }
+        expires_in:   { type: integer, example: 7200 }
+
+    CreateTripRequest:
+      type: object
+      required: [car_id, starts_at, ends_at]
+      properties:
+        car_id:    { type: integer, example: 3 }
+        starts_at: { type: string, format: date-time, example: "2025-07-04T09:00:00+02:00" }
+        ends_at:   { type: string, format: date-time, example: "2025-07-04T13:00:00+02:00" }
+
+    UpdateTripRequest:
+      type: object
+      required: [status]
+      properties:
+        status: { $ref: "#/components/schemas/TripStatus" }
+
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: Employee login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LoginRequest" }
+      responses:
+        200:
+          description: Successful login
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenResponse" }
+        401:
+          description: Invalid credentials
+
+  /api/auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh access token
+      security:
+        - BearerAuth: [ ]
+      responses:
+        200:
+          description: New token
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenResponse" }
+        401: { description: Invalid / expired token }
+
+  /api/auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current employee profile
+      security:
+        - BearerAuth: [ ]
+      responses:
+        200:
+          description: Profile JSON (Employee model)
+        401: { description: Unauthorized }
+
+  /api/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Invalidate token
+      security:
+        - BearerAuth: [ ]
+      responses:
+        200: { description: Logged out }
+
+  /api/available-cars:
+    get:
+      tags: [Cars]
+      summary: List cars available to current employee in interval
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - in: query
+          name: starts_at
+          schema: { type: string, format: date-time }
+          required: true
+        - in: query
+          name: ends_at
+          schema: { type: string, format: date-time }
+          required: true
+        - in: query
+          name: model_id
+          schema: { type: integer }
+        - in: query
+          name: comfort_category_id
+          schema: { type: integer }
+      responses:
+        200:
+          description: Array of available cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Car" }
+        401: { description: Unauthorized }
+        422: { description: Validation error }
+
+  /api/trips:
+    get:
+      tags: [Trips]
+      summary: Get all trips of current employee
+      security:
+        - BearerAuth: [ ]
+      responses:
+        200:
+          description: List of trips
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Trip" }
+
+    post:
+      tags: [Trips]
+      summary: Create a new trip
+      security:
+        - BearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateTripRequest" }
+      responses:
+        201:
+          description: Trip created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Trip" }
+        422: { description: Validation error }
+
+  /api/trips/{id}:
+    patch:
+      tags: [Trips]
+      summary: Update trip status
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UpdateTripRequest" }
+      responses:
+        200:
+          description: Trip updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Trip" }
+        403: { description: Forbidden }
+        422: { description: Validation error }
+
+    delete:
+      tags: [Trips]
+      summary: Delete (cancel) trip
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        204: { description: Deleted }
+        403: { description: Forbidden }
